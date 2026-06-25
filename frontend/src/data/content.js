@@ -1,4 +1,23 @@
-// Static service catalog used by Home + Services + Booking form
+// Real Lakshitography images (5 client-shot photos) + a few stock fillers for
+// categories not yet represented. Swap the stock ones when more real work arrives.
+
+const REAL = {
+  wedding_bride: "https://customer-assets.emergentagent.com/job_moments-home/artifacts/asow04c1_DSC03405.ARW.jpg",
+  kids_two_girls: "https://customer-assets.emergentagent.com/job_moments-home/artifacts/28jggwuz_DSC00237.jpg",
+  kid_pink_tutu: "https://customer-assets.emergentagent.com/job_moments-home/artifacts/e231pwru_DSC00275.jpg",
+  baby_boy_party: "https://customer-assets.emergentagent.com/job_moments-home/artifacts/777br5s9_DSC00005.jpg",
+  kids_celebration: "https://customer-assets.emergentagent.com/job_moments-home/artifacts/ndqimdo2_IMG_20251220_231929.jpg",
+};
+
+// Fillers (kept warm + intimate, swap with real work later)
+const STOCK = {
+  couple_a: "https://images.unsplash.com/photo-1769566025603-2e694fb2ff68?auto=format&fit=crop&q=85&w=900",
+  couple_b: "https://images.unsplash.com/photo-1758225104742-718edea1f371?auto=format&fit=crop&q=85&w=900",
+  family_a: "https://images.unsplash.com/photo-1770587899537-23e617e17767?auto=format&fit=crop&q=85&w=900",
+  family_b: "https://images.unsplash.com/photo-1595950009887-e9842bcbc1ae?auto=format&fit=crop&q=85&w=900",
+  gathering: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=85&w=900",
+};
+
 export const SERVICES = [
   {
     slug: "couple-lifestyle",
@@ -10,8 +29,7 @@ export const SERVICES = [
     addOn: "Optional 30-sec reel add-on",
     blurb:
       "Slow mornings, soft sunlight, quiet glances. A relaxed walk-through of the way you two actually exist together.",
-    image:
-      "https://images.unsplash.com/photo-1769566025603-2e694fb2ff68?auto=format&fit=crop&q=85&w=900",
+    image: STOCK.couple_a,
   },
   {
     slug: "family-portraits",
@@ -23,8 +41,7 @@ export const SERVICES = [
     addOn: "Optional family video story",
     blurb:
       "Real laughter, real chaos, the kind of family photos you'll actually frame — not the stiff studio kind.",
-    image:
-      "https://images.unsplash.com/photo-1770587899537-23e617e17767?auto=format&fit=crop&q=85&w=900",
+    image: REAL.wedding_bride,
   },
   {
     slug: "kids-birthday",
@@ -36,8 +53,7 @@ export const SERVICES = [
     addOn: "Highlight reel add-on",
     blurb:
       "Tiny hands on cake, the candle moment, that one cousin crying — birthdays exactly as they happen.",
-    image:
-      "https://images.unsplash.com/photo-1688632107202-7902806ff3d4?auto=format&fit=crop&q=85&w=900",
+    image: REAL.kid_pink_tutu,
   },
   {
     slug: "anniversary",
@@ -49,8 +65,7 @@ export const SERVICES = [
     addOn: "Optional cinematic clip",
     blurb:
       "A return to where it began, or simply the home you've built. Quiet, romantic, unhurried.",
-    image:
-      "https://images.unsplash.com/photo-1699730148132-1409a3728479?auto=format&fit=crop&q=85&w=900",
+    image: REAL.wedding_bride,
   },
   {
     slug: "kitty-gathering",
@@ -62,45 +77,42 @@ export const SERVICES = [
     addOn: "Group portrait set",
     blurb:
       "The afternoon stretches. Tea, laughter, gossip — captured without interrupting a single moment.",
-    image:
-      "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=85&w=900",
+    image: STOCK.gathering,
   },
 ];
 
+// Hero grid (2x2) — mix of real signature shots + warm stock for missing categories
 export const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1758225104742-718edea1f371?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1595950009887-e9842bcbc1ae?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1516668557604-c8e814fdb184?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=85&w=1200",
+  REAL.wedding_bride,
+  REAL.kid_pink_tutu,
+  REAL.baby_boy_party,
+  REAL.kids_two_girls,
 ];
 
-// Secondary image pool that cycles through the hero grid
 export const HERO_POOL = [
-  "https://images.unsplash.com/photo-1769566025603-2e694fb2ff68?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1770587899537-23e617e17767?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1688632107202-7902806ff3d4?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1699730148132-1409a3728479?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1758225104742-718edea1f371?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1595950009887-e9842bcbc1ae?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1516668557604-c8e814fdb184?auto=format&fit=crop&q=85&w=1200",
-  "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=85&w=1200",
+  REAL.wedding_bride,
+  REAL.kid_pink_tutu,
+  REAL.baby_boy_party,
+  REAL.kids_two_girls,
+  REAL.kids_celebration,
+  STOCK.couple_a,
+  STOCK.family_a,
+  STOCK.gathering,
 ];
 
 export const GALLERY = [
-  { category: "Couples",   url: "https://images.unsplash.com/photo-1769566025603-2e694fb2ff68?auto=format&fit=crop&q=85&w=900" },
-  { category: "Families",  url: "https://images.unsplash.com/photo-1770587899537-23e617e17767?auto=format&fit=crop&q=85&w=900" },
-  { category: "Kids",      url: "https://images.unsplash.com/photo-1688632107202-7902806ff3d4?auto=format&fit=crop&q=85&w=900" },
-  { category: "Anniversary", url: "https://images.unsplash.com/photo-1699730148132-1409a3728479?auto=format&fit=crop&q=85&w=900" },
-  { category: "Gatherings", url: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=85&w=900" },
-  { category: "Couples",   url: "https://images.unsplash.com/photo-1758225104742-718edea1f371?auto=format&fit=crop&q=85&w=900" },
-  { category: "Families",  url: "https://images.unsplash.com/photo-1595950009887-e9842bcbc1ae?auto=format&fit=crop&q=85&w=900" },
-  { category: "Kids",      url: "https://images.unsplash.com/photo-1516668557604-c8e814fdb184?auto=format&fit=crop&q=85&w=900" },
-  { category: "Couples",   url: "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?auto=format&fit=crop&q=85&w=900" },
-  { category: "Families",  url: "https://images.unsplash.com/photo-1609220136736-443140cffec6?auto=format&fit=crop&q=85&w=900" },
-  { category: "Gatherings", url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=85&w=900" },
-  { category: "Anniversary", url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=85&w=900" },
+  { category: "Anniversary", url: REAL.wedding_bride },
+  { category: "Kids",        url: REAL.kid_pink_tutu },
+  { category: "Kids",        url: REAL.kids_two_girls },
+  { category: "Kids",        url: REAL.baby_boy_party },
+  { category: "Kids",        url: REAL.kids_celebration },
+  { category: "Couples",     url: STOCK.couple_a },
+  { category: "Couples",     url: STOCK.couple_b },
+  { category: "Families",    url: STOCK.family_a },
+  { category: "Families",    url: STOCK.family_b },
+  { category: "Gatherings",  url: STOCK.gathering },
 ];
 
 export const CATEGORIES = ["All", "Couples", "Families", "Kids", "Anniversary", "Gatherings"];
 
-export const WHATSAPP_NUMBER = "919876543210"; // dummy
+export const WHATSAPP_NUMBER = "919876543210"; // dummy — replace with Lakshita's real number

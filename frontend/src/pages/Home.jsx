@@ -147,7 +147,7 @@ export default function Home() {
       <section data-testid="section-what-i-dont-do" className="relative py-24 lg:py-32 px-6 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=85&w=1600"
+            src="https://customer-assets.emergentagent.com/job_moments-home/artifacts/777br5s9_DSC00005.jpg"
             alt=""
             className="w-full h-full object-cover opacity-15 grayscale"
           />
@@ -245,7 +245,7 @@ export default function Home() {
       <section data-testid="section-final-cta" className="relative py-32 lg:py-40 px-6 lg:px-12 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1699730148132-1409a3728479?auto=format&fit=crop&q=85&w=1600"
+            src="https://customer-assets.emergentagent.com/job_moments-home/artifacts/asow04c1_DSC03405.ARW.jpg"
             alt=""
             className="w-full h-full object-cover opacity-30"
           />
