@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
 
 export const api = axios.create({
@@ -9,8 +9,10 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("lkx_token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("lkx_token");
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 

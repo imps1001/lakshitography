@@ -2,7 +2,8 @@
 
 A modern, premium photography portfolio website with a Luxury Dark Theme. Includes a public site (Home, Services, Gallery, Contact/Booking) and an Admin dashboard to manage booking inquiries.
 
-**Tech stack:** React + Tailwind + Shadcn UI (frontend) · FastAPI + Motor (backend) · MongoDB (database) · JWT auth.
+**Tech stack:** Next.js (App Router) + Tailwind CSS + framer-motion (frontend) · FastAPI + Motor (backend) · MongoDB (database) · JWT auth.
+**Package manager:** npm (frontend) · pip (backend).
 
 ---
 
@@ -11,15 +12,32 @@ A modern, premium photography portfolio website with a Luxury Dark Theme. Includ
 ```
 /app
 ├── backend
-│   ├── .env                  # MONGO_URL, DB_NAME, JWT_SECRET, ADMIN_*
+│   ├── .env                    # MONGO_URL, DB_NAME, JWT_SECRET, ADMIN_*
 │   ├── requirements.txt
-│   └── server.py             # FastAPI app: auth + booking CRUD + admin seed
+│   └── server.py               # FastAPI app: auth + booking CRUD + admin seed
 ├── frontend
-│   ├── .env                  # REACT_APP_BACKEND_URL
+│   ├── .env                    # NEXT_PUBLIC_BACKEND_URL
+│   ├── next.config.js
+│   ├── tailwind.config.js
+│   ├── package.json            # npm scripts & dependencies
 │   └── src
-│       ├── data/content.js   # ⭐ All gallery/services/hero images + site data
-│       ├── components/       # Navbar, Footer, HeroGrid
-│       └── pages/            # Home, Services, Gallery, Contact, Admin*
+│       ├── app                 # Next.js App Router
+│       │   ├── layout.jsx          # root layout (html/body)
+│       │   ├── providers.jsx       # React Query + Auth + Toaster (client)
+│       │   ├── globals.css         # theme + Tailwind + custom utilities
+│       │   ├── (site)/             # public pages (share Navbar + Footer)
+│       │   │   ├── layout.jsx
+│       │   │   ├── page.jsx            → "/"        (Home)
+│       │   │   ├── services/page.jsx   → "/services"
+│       │   │   ├── gallery/page.jsx    → "/gallery"
+│       │   │   └── contact/            → "/contact" (page + ContactForm)
+│       │   └── admin/
+│       │       ├── login/page.jsx      → "/admin/login"
+│       │       └── page.jsx            → "/admin"  (dashboard)
+│       ├── components/         # Navbar, Footer, HeroGrid
+│       ├── context/            # AuthContext
+│       ├── data/content.js     # ⭐ All gallery/services/hero images + site data
+│       └── lib/api.js          # axios client (reads NEXT_PUBLIC_BACKEND_URL)
 └── README.md
 ```
 
@@ -28,7 +46,7 @@ A modern, premium photography portfolio website with a Luxury Dark Theme. Includ
 ## 🚀 Setup & Run
 
 ### Prerequisites
-- Node.js 18+ and **yarn**
+- Node.js 18.18+ (Node 20+ recommended for Next.js)
 - Python 3.10+
 - MongoDB running locally (or a connection string)
 
@@ -40,58 +58,61 @@ cd /app/backend
 # Install dependencies
 pip install -r requirements.txt
 
-# Make sure backend/.env contains:
+# backend/.env must contain:
 #   MONGO_URL=mongodb://localhost:27017
-#   DB_NAME=lakshitography
+#   DB_NAME=test_database
 #   JWT_SECRET=<a-long-random-secret>
 #   ADMIN_EMAIL=admin@lakshitography.com
-#   ADMIN_PASSWORD=admin123
+#   ADMIN_PASSWORD=Lakshita@2025
+#   CORS_ORIGINS=*
+
+# Run the API (port 8001, all routes prefixed with /api)
+uvicorn server:app --host 0.0.0.0 --port 8001 --reload
 ```
 
-The backend runs on `0.0.0.0:8001` and is managed by **supervisor**. All routes are prefixed with `/api`.
+> On first start the backend **auto-seeds an admin user** using `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env` (see `on_startup` in `server.py`). No separate seed command is needed.
 
-```bash
-# Restart after .env or dependency changes
-sudo supervisorctl restart backend
-
-# Check logs
-tail -n 100 /var/log/supervisor/backend.*.log
-```
-
-> The first time the backend starts, it **auto-seeds an admin user** using `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env` (see `on_startup` in `server.py`). No separate seed command is needed.
-
-### 2. Frontend (React)
+### 2. Frontend (Next.js)
 
 ```bash
 cd /app/frontend
 
-# Install dependencies (use yarn, not npm)
-yarn install
+# Install dependencies (npm)
+npm install
 
 # frontend/.env must contain the backend URL:
-#   REACT_APP_BACKEND_URL=https://<your-app>.preview.emergentagent.com
+#   NEXT_PUBLIC_BACKEND_URL=http://localhost:8001
+
+# Development (hot reload) — http://localhost:3000
+npm run dev
+
+# Production build & serve
+npm run build
+npm run start:prod
 ```
 
-The frontend runs on port `3000` (supervisor-managed).
+| Script              | What it does                                   |
+|---------------------|------------------------------------------------|
+| `npm run dev`       | Next.js dev server with hot reload (port 3000) |
+| `npm run build`     | Production build                               |
+| `npm run start:prod`| Serve the production build (port 3000)         |
+| `npm start`         | Alias of `dev` (used by the hosted preview)    |
 
-```bash
-# Restart after .env or dependency changes
-sudo supervisorctl restart frontend
-```
+> **Env var note:** Next.js only exposes variables prefixed with `NEXT_PUBLIC_` to the browser. The frontend reads `process.env.NEXT_PUBLIC_BACKEND_URL` in `src/lib/api.js`. Update this to point at your backend (e.g. `http://localhost:8001` locally, or your server's public URL in production).
 
 ### 3. Open the app
-- Public site: the `REACT_APP_BACKEND_URL` host (port 3000 via ingress)
-- Admin dashboard: `/admin/login` → log in with the seeded admin credentials
+- Public site: `http://localhost:3000`
+- Admin dashboard: `http://localhost:3000/admin/login`
 
 ---
 
 ## 🔑 Admin Access
 
-| Field    | Value                          |
-|----------|--------------------------------|
-| URL      | `/admin/login`                 |
-| Email    | `ADMIN_EMAIL` from backend/.env |
-| Password | `ADMIN_PASSWORD` from backend/.env |
+| Field    | Value                              |
+|----------|------------------------------------|
+| URL      | `/admin/login`                     |
+| Email    | `ADMIN_EMAIL` from backend/.env (`admin@lakshitography.com`) |
+| Password | `ADMIN_PASSWORD` from backend/.env (`Lakshita@2025`)         |
 
 From the dashboard you can view, filter, update status, and delete booking inquiries.
 
@@ -105,10 +126,10 @@ All images for the site live in **one file**:
 /app/frontend/src/data/content.js
 ```
 
-You do **not** need to touch any component code — just edit this file. After saving, the frontend hot-reloads automatically.
+You do **not** need to touch any component code — just edit this file. In dev (`npm run dev`) the page hot-reloads automatically.
 
 ### Step 1 — Get your image URLs
-Each image must be a publicly reachable URL (e.g. an uploaded asset URL, a CDN link, or a hosted file). Add your new image links to the `REAL` object at the top of the file so they're easy to reuse:
+Each image must be a publicly reachable URL (an uploaded asset URL, a CDN link, or a hosted file). Add your new image links to the `REAL` object at the top of the file so they're easy to reuse:
 
 ```js
 const REAL = {

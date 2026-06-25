@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Instagram, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
@@ -18,10 +18,10 @@ export default function Footer() {
         <div className="md:justify-self-center">
           <p className="eyebrow mb-5">Explore</p>
           <ul className="space-y-3 text-text-secondary text-sm">
-            <li><Link to="/" className="hover:text-gold transition-colors">Home</Link></li>
-            <li><Link to="/services" className="hover:text-gold transition-colors">Services</Link></li>
-            <li><Link to="/gallery" className="hover:text-gold transition-colors">Gallery</Link></li>
-            <li><Link to="/contact" className="hover:text-gold transition-colors">Book a Session</Link></li>
+            <li><Link href="/" className="hover:text-gold transition-colors">Home</Link></li>
+            <li><Link href="/services" className="hover:text-gold transition-colors">Services</Link></li>
+            <li><Link href="/gallery" className="hover:text-gold transition-colors">Gallery</Link></li>
+            <li><Link href="/contact" className="hover:text-gold transition-colors">Book a Session</Link></li>
           </ul>
         </div>
 
@@ -38,7 +38,7 @@ export default function Footer() {
       <div className="border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs text-text-secondary">© {new Date().getFullYear()} Lakshitography. All moments reserved.</p>
-          <Link to="/admin/login" data-testid="admin-login-link" className="text-xs text-text-secondary hover:text-gold transition-colors tracking-wider uppercase">Admin</Link>
+          <Link href="/admin/login" data-testid="admin-login-link" className="text-xs text-text-secondary hover:text-gold transition-colors tracking-wider uppercase">Admin</Link>
         </div>
       </div>
     </footer>

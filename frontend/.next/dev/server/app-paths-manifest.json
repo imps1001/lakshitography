@@ -1,0 +1,8 @@
+{
+  "/(site)/contact/page": "app/(site)/contact/page.js",
+  "/(site)/gallery/page": "app/(site)/gallery/page.js",
+  "/(site)/page": "app/(site)/page.js",
+  "/(site)/services/page": "app/(site)/services/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/page": "app/admin/page.js"
+}

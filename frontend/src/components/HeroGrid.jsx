@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HERO_IMAGES, HERO_POOL } from "@/data/content";
@@ -19,9 +21,7 @@ export default function HeroGrid() {
         const id = setInterval(() => {
           setIndices((prev) => {
             const next = [...prev];
-            // pick next image distinct from current tile's own image
             let n = (next[i] + 1 + Math.floor(Math.random() * 2)) % HERO_POOL.length;
-            // avoid duplicate across tiles
             if (next.includes(n)) n = (n + 1) % HERO_POOL.length;
             next[i] = n;
             return next;

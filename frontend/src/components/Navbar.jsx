@@ -1,4 +1,7 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -12,7 +15,7 @@ const links = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,7 +24,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <header
@@ -31,27 +36,28 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-20">
-        <Link to="/" data-testid="logo-link" className="group flex items-baseline gap-2">
+        <Link href="/" data-testid="logo-link" className="group flex items-baseline gap-2">
           <span className="font-serif-display text-2xl text-text-primary tracking-tight">Lakshit</span>
           <span className="font-serif-display italic text-2xl text-gold">ography</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              data-testid={`nav-${l.label.toLowerCase()}`}
-              className={({ isActive }) =>
-                `text-[0.78rem] tracking-eyebrow uppercase font-light transition-colors ${
+          {links.map((l) => {
+            const isActive = pathname === l.to;
+            return (
+              <Link
+                key={l.to}
+                href={l.to}
+                data-testid={`nav-${l.label.toLowerCase()}`}
+                className={`text-[0.78rem] tracking-eyebrow uppercase font-light transition-colors ${
                   isActive ? "text-gold" : "text-text-secondary hover:text-text-primary"
-                }`
-              }
-            >
-              {l.label}
-            </NavLink>
-          ))}
-          <Link to="/contact" data-testid="nav-cta-book" className="btn-primary">
+                }`}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
+          <Link href="/contact" data-testid="nav-cta-book" className="btn-primary">
             Book a Session
           </Link>
         </nav>
@@ -69,19 +75,20 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden border-t border-white/5 bg-[#050505]/95 backdrop-blur-xl">
           <div className="px-6 py-6 flex flex-col gap-5">
-            {links.map((l) => (
-              <NavLink
-                key={l.to}
-                to={l.to}
-                data-testid={`mobile-nav-${l.label.toLowerCase()}`}
-                className={({ isActive }) =>
-                  `text-base tracking-wide ${isActive ? "text-gold" : "text-text-primary"}`
-                }
-              >
-                {l.label}
-              </NavLink>
-            ))}
-            <Link to="/contact" data-testid="mobile-nav-cta-book" className="btn-primary mt-2 w-fit">
+            {links.map((l) => {
+              const isActive = pathname === l.to;
+              return (
+                <Link
+                  key={l.to}
+                  href={l.to}
+                  data-testid={`mobile-nav-${l.label.toLowerCase()}`}
+                  className={`text-base tracking-wide ${isActive ? "text-gold" : "text-text-primary"}`}
+                >
+                  {l.label}
+                </Link>
+              );
+            })}
+            <Link href="/contact" data-testid="mobile-nav-cta-book" className="btn-primary mt-2 w-fit">
               Book a Session
             </Link>
           </div>
