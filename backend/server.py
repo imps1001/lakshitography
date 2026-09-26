@@ -21,6 +21,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 
 # ---------- DB ----------
 mongo_url = os.environ['MONGO_URL']
+print(f"Connecting to MongoDB at {mongo_url}...")
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
@@ -234,8 +235,8 @@ async def on_startup():
     await db.users.create_index("email", unique=True)
     await db.bookings.create_index("created_at")
 
-    admin_email = os.environ.get("ADMIN_EMAIL", "admin@lakshitography.com").lower().strip()
-    admin_password = os.environ.get("ADMIN_PASSWORD", "Lakshita@2025")
+    admin_email = os.environ.get("ADMIN_EMAIL", "lakshitography@gmail.com").lower().strip()
+    admin_password = os.environ.get("ADMIN_PASSWORD", "Ivar@3193").strip()
     existing = await db.users.find_one({"email": admin_email})
     if existing is None:
         await db.users.insert_one({

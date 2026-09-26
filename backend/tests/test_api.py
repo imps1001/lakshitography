@@ -6,8 +6,8 @@ import requests
 BASE_URL = os.environ.get("REACT_APP_BACKEND_URL", "https://luxury-photo-demo.preview.emergentagent.com").rstrip("/")
 API = f"{BASE_URL}/api"
 
-ADMIN_EMAIL = "admin@lakshitography.com"
-ADMIN_PASSWORD = "Lakshita@2025"
+ADMIN_EMAIL = "lakshitography@gmail.com"
+ADMIN_PASSWORD = "Ivar@3193"
 
 
 @pytest.fixture(scope="session")
